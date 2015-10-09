@@ -1,0 +1,26 @@
+{
+    "name": "jii-clientrouter",
+    "version": "0.5.3",
+    "description": "Listen address bar url events and route it to actions",
+    "main": "index-client.js",
+    "browser": "index-client.js",
+    "author": "Vladimir Kozhin <affka@affka.ru>",
+    "scripts": {
+        "test": "nodeunit tests/unit"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jiisoft/jii-clientrouter"
+    },
+    "keywords": [
+        "yii",
+        "php",
+        "framework",
+        "javascript"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/jiisoft/jii-clientrouter",
+    "bugs": {
+        "url": "https://github.com/jiisoft/jii-clientrouter/issues"
+    }
+}

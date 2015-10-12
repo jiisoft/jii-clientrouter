@@ -1,6 +1,6 @@
 {
     "name": "jii-clientrouter",
-    "version": "0.5.5",
+    "version": "0.5.7",
     "description": "Listen address bar url events and route it to actions",
     "main": "index-client.js",
     "browser": "index-client.js",

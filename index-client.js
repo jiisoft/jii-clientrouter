@@ -1,8 +1,6 @@
-'use strict';
+module.exports = require('jii');
 
-require('jii');
-
-// Load framework files
-require('./lib/Request');
-require('./lib/Response');
-require('./lib/Router');
+require('./lib/client/ChangeEvent.js');
+require('./lib/client/Request.js');
+require('./lib/client/Response.js');
+require('./lib/client/Router.js');

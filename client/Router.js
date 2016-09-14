@@ -6,26 +6,39 @@
 
 'use strict';
 
-/**
- * @namespace Jii
- * @ignore
- */
 var Jii = require('jii');
+var _isString = require('lodash/isString');
+var _extend = require('lodash/extend');
+var Component = require('jii/base/Component');
 
 /**
- * @class Jii.clientRouter.ChangeEvent
+ * @class Jii.clientRouter.Router
  * @extends Jii.base.Component
  */
-Jii.defineClass('Jii.clientRouter.ChangeEvent', /** @lends Jii.clientRouter.ChangeEvent.prototype */{
+module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clientRouter.Router.prototype */{
 
-	__extends: 'Jii.base.Event',
+	__extends: Component,
 
-    route: null,
+    __static: /** @lends Jii.clientRouter.Router */{
+
+        MODE_PUSH_STATE: 'push_state',
+        MODE_HASH: 'hash'
+
+    },
+
+    /**
+     * @type {Jii.controller.UrlManager|string}
+     */
+    urlManager: 'urlManager',
+
+    mode: null,
+
+    _bindRouteFunction: null,
 
     init() {
         this._bindRouteFunction = this._onRoute.bind(this);
 
-        if (Jii._.isString(this.urlManager)) {
+        if (_isString(this.urlManager)) {
             this.urlManager = Jii.app.getComponent(this.urlManager);
         }
         if (this.mode === null) {
@@ -107,7 +120,7 @@ Jii.defineClass('Jii.clientRouter.ChangeEvent', /** @lends Jii.clientRouter.Chan
 
             // Append parsed params to request
             var queryParams = request.getQueryParams();
-            request.setQueryParams(Jii._.extend(queryParams, params));
+            request.setQueryParams(_extend(queryParams, params));
 
             var context = Jii.createContext();
             context.setComponent('request', request);

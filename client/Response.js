@@ -6,19 +6,16 @@
 
 'use strict';
 
-/**
- * @namespace Jii
- * @ignore
- */
 var Jii = require('jii');
+var Response = require('jii/base/Response');
 
 /**
  * @class Jii.clientRouter.Response
  * @extends Jii.base.Response
  */
-Jii.defineClass('Jii.clientRouter.Response', /** @lends Jii.clientRouter.Response.prototype */{
+module.exports = Jii.defineClass('Jii.clientRouter.Response', /** @lends Jii.clientRouter.Response.prototype */{
 
-	__extends: 'Jii.base.Response'
+	__extends: Response
 
 
 });

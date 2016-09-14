@@ -6,25 +6,24 @@
 
 'use strict';
 
-/**
- * @namespace Jii
- * @ignore
- */
 var Jii = require('jii');
+var _trim = require('lodash/trim');
+var _clone = require('lodash/clone');
+var HttpRequest = require('jii/base/HttpRequest')
 
 /**
  * @class Jii.clientRouter.Request
  * @extends Jii.base.HttpRequest
  */
-Jii.defineClass('Jii.clientRouter.Request', /** @lends Jii.clientRouter.Request.prototype */{
+module.exports = Jii.defineClass('Jii.clientRouter.Request', /** @lends Jii.clientRouter.Request.prototype */{
 
-	__extends: 'Jii.base.HttpRequest',
+	__extends: HttpRequest,
 
     constructor(location) {
         if (!(location instanceof Location)) {
             throw new Jii.exceptions.InvalidConfigException('Location is not instanceof class browser Location.');
         }
-        this._location = Jii._.clone(location);
+        this._location = _clone(location);
 
         this.init();
     },
@@ -97,7 +96,7 @@ Jii.defineClass('Jii.clientRouter.Request', /** @lends Jii.clientRouter.Request.
     },
 
     _parsePathInfo() {
-        return Jii._s.trim(this._location.pathname, '/');
+        return _trim(this._location.pathname, '/');
     }
 
 });

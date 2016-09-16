@@ -7,6 +7,8 @@
 'use strict';
 
 var Jii = require('jii');
+var Request = require('./Request');
+var Response = require('./Response');
 var _isString = require('lodash/isString');
 var _extend = require('lodash/extend');
 var Component = require('jii/base/Component');
@@ -112,7 +114,7 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
                 break;
         }
 
-        var request = new Jii.clientRouter.Request(location);
+        var request = new Request(location);
         var result = this.urlManager.parseRequest(request);
         if (result !== false) {
             var route = result[0];
@@ -124,7 +126,7 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
 
             var context = Jii.createContext();
             context.setComponent('request', request);
-            context.setComponent('response', new Jii.clientRouter.Response());
+            context.setComponent('response', new Response());
 
             Jii.app.runAction(route, context);
         }

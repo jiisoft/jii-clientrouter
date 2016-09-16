@@ -7,6 +7,7 @@
 'use strict';
 
 var Jii = require('jii');
+var InvalidConfigException = require('jii/exceptions/InvalidConfigException');
 var _trim = require('lodash/trim');
 var _clone = require('lodash/clone');
 var HttpRequest = require('jii/base/HttpRequest')
@@ -21,7 +22,7 @@ module.exports = Jii.defineClass('Jii.clientRouter.Request', /** @lends Jii.clie
 
     constructor(location) {
         if (!(location instanceof Location)) {
-            throw new Jii.exceptions.InvalidConfigException('Location is not instanceof class browser Location.');
+            throw new InvalidConfigException('Location is not instanceof class browser Location.');
         }
         this._location = _clone(location);
 

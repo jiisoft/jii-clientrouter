@@ -8,7 +8,7 @@
 
 var Jii = require('jii');
 var InvalidConfigException = require('jii/exceptions/InvalidConfigException');
-var _trim = require('lodash/trim');
+var _trimStart = require('lodash/trimStart');
 var HttpRequest = require('jii/base/HttpRequest')
 
 /**
@@ -96,7 +96,7 @@ module.exports = Jii.defineClass('Jii.clientRouter.Request', /** @lends Jii.clie
     },
 
     _parsePathInfo() {
-        return _trim(this._location.pathname, '/');
+        return _trimStart(this._location.pathname, '/');
     }
 
 });

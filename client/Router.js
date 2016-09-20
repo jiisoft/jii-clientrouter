@@ -19,7 +19,7 @@ var Component = require('jii/base/Component');
  */
 module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clientRouter.Router.prototype */{
 
-	__extends: Component,
+    __extends: Component,
 
     __static: /** @lends Jii.clientRouter.Router */{
 
@@ -39,6 +39,7 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
 
     init() {
         this._bindRouteFunction = this._onRoute.bind(this);
+        this._bindClickFunction = this._onClick.bind(this);
 
         if (_isString(this.urlManager)) {
             this.urlManager = Jii.app.getComponent(this.urlManager);
@@ -54,6 +55,12 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
         switch(this.mode) {
             case this.__static.MODE_PUSH_STATE:
                 window.addEventListener('popstate', this._bindRouteFunction, false);
+
+                if (window.addEventListener) {
+                    window.addEventListener("click", this._bindClickFunction, false);
+                } else if (window.attachEvent) {
+                    window.attachEvent("click", this._bindClickFunction);
+                }
                 break;
 
             case this.__static.MODE_HASH:
@@ -73,28 +80,56 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
         switch(this.mode) {
             case this.__static.MODE_PUSH_STATE:
                 window.removeEventListener('popstate', this._bindRouteFunction);
+
+                if (window.removeEventListener) {
+                    window.removeEventListener("click", this._bindClickFunction, false);
+                } else if (window.detachEvent) {
+                    window.detachEvent("click", this._bindClickFunction);
+                }
                 break;
 
             case this.__static.MODE_HASH:
                 if (window.removeEventListener) {
                     window.removeEventListener("hashchange", this._bindRouteFunction, false);
-                } else if (window.attachEvent) {
+                } else if (window.detachEvent) {
                     window.detachEvent("onhashchange", this._bindRouteFunction);
                 }
                 break;
         }
     },
 
-    createUrl(route, params) {
-        var url = this.urlManager.createUrl([route, params]);
+    /**
+     *
+     * @param {string|*[]} route
+     * @returns {boolean}
+     */
+    goTo(route) {
+        var url = this.urlManager.createUrl(route);
+        if (!url) {
+            return false;
+        }
 
         switch(this.mode) {
+            case this.__static.MODE_PUSH_STATE:
+                history.pushState({}, '', url);
+                this._onRoute();
+                break;
+
             case this.__static.MODE_HASH:
-                url = '/' + this.urlManager.getBaseUrl() + '#' + url;
+                location.hash = '#' + url;
                 break;
         }
 
-        return url;
+        return true;
+    },
+
+    createUrl(route) {
+        var url = this.urlManager.createUrl(route);
+        if (!url) {
+            return '#';
+        }
+
+        return '#' + url;
     },
 
     _getHash() {
@@ -129,6 +164,18 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
             context.setComponent('response', new Response());
 
             Jii.app.runAction(route, context);
+        }
+    },
+
+    _onClick(e) {
+        if (e.target && e.target.tagName.toLowerCase() === 'a') {
+            let url = e.target.getAttribute('href') || '';
+            if (url.indexOf('#') === 0) {
+                e.preventDefault();
+
+                history.pushState({}, '', url);
+                this._onRoute();
+            }
         }
     }
 

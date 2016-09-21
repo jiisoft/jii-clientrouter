@@ -104,7 +104,7 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
      * @returns {boolean}
      */
     goTo(route) {
-        var url = this.urlManager.createUrl(route);
+        var url = this.urlManager.createAbsoluteUrl(route);
         if (!url) {
             return false;
         }
@@ -124,7 +124,7 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
     },
 
     createUrl(route) {
-        var url = this.urlManager.createUrl(route);
+        var url = this.urlManager.createAbsoluteUrl(route);
         if (!url) {
             return '#';
         }

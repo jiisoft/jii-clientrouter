@@ -1,6 +1,8 @@
 module.exports = require('jii');
 
 // AUTO-GENERATED Package files list
-require('./client/Request.js');
-require('./client/Response.js');
-require('./client/Router.js');
+if (!process.env.JII_NO_NAMESPACE) {
+    require('./client/Request.js');
+    require('./client/Response.js');
+    require('./client/Router.js');
+}

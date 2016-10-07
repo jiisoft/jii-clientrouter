@@ -17,7 +17,7 @@ var Component = require('jii/base/Component');
  * @class Jii.clientRouter.Router
  * @extends Jii.base.Component
  */
-module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clientRouter.Router.prototype */{
+var Router = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clientRouter.Router.prototype */{
 
     __extends: Component,
 
@@ -159,7 +159,7 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
             var queryParams = request.getQueryParams();
             request.setQueryParams(_extend(queryParams, params));
 
-            var context = Jii.createContext();
+            var context = Jii.createContext({route: route});
             context.setComponent('request', request);
             context.setComponent('response', new Response());
 
@@ -180,3 +180,5 @@ module.exports = Jii.defineClass('Jii.clientRouter.Router', /** @lends Jii.clien
     }
 
 });
+
+module.exports = Router;

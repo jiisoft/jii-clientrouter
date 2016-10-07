@@ -15,7 +15,7 @@ var HttpRequest = require('jii/base/HttpRequest')
  * @class Jii.clientRouter.Request
  * @extends Jii.base.HttpRequest
  */
-module.exports = Jii.defineClass('Jii.clientRouter.Request', /** @lends Jii.clientRouter.Request.prototype */{
+var Request = Jii.defineClass('Jii.clientRouter.Request', /** @lends Jii.clientRouter.Request.prototype */{
 
 	__extends: HttpRequest,
 
@@ -100,3 +100,5 @@ module.exports = Jii.defineClass('Jii.clientRouter.Request', /** @lends Jii.clie
     }
 
 });
+
+module.exports = Request;

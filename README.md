@@ -1,2 +1,2 @@
 # jii-clientrouter
-Listen address bar url events and route it to actions
+Deprecated. Package moved to jii.
